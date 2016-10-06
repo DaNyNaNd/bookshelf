@@ -5,7 +5,7 @@ const bodyParser = require('body-parser')
 const mongoose = require('mongoose')
 
 app.set('view engine', 'ejs')
-app.set('views', __dirname + '\\app')
+app.set('views', __dirname + '/app')
 
 // connect to the Mongo db
 // TODO
@@ -38,6 +38,7 @@ router.route('/books')
   .post((req, res) => {
     let book = new Book()
     book.title = req.body.title
+    book.author = req.body.author
     book.save((err) => {
       if(err)
         res.send(err)
@@ -61,16 +62,18 @@ router.route('/books')
 // for routes that end in /books/:book_id
 router.route('/books/:book_id')
 // GET the book with the id specified
-.get((req, res) => {
+.get((req, res) => { // add Book profile page
   Book.findById(req.params.book_id, (err, book) => {
     if(err)
       res.send(err)
 
-    res.json(book)
+    res.render('./views/pages/book', {
+      book: book
+    })
   })
 })
 // PUT update the book with specified id
-.put((req, res) => {
+.put((req, res) => { // update from Book profile page
   Book.findById(req.params.book_id, (err, book) => {
     if(err)
       res.send(err)
@@ -86,7 +89,7 @@ router.route('/books/:book_id')
   })
 })
 // DELETE a book by id
-.delete((req, res) => {
+.delete((req, res) => { // delete from Book profile page
   Book.remove({
     _id: req.params.book_id
   }, (err, book) => {

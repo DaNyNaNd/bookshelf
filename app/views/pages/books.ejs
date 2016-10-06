@@ -14,7 +14,7 @@
             <h1>My Books</h1>
               <ul>
                 <% books.forEach(function(book) { %>
-                  <li><h2><%= book.title %></h2></li>
+                  <li><a href='/api/books/<%= book.id %>'<h2><%= book.title %> - <%= book.author %></h2></a></li>
                 <% }) %>
               </ul>
         </div>
