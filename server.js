@@ -31,6 +31,10 @@ router.get('/', (req, res) => {
 })
 
 // more routes here
+router.route('/add')
+  .get((req, res) => {
+    res.render('./views/pages/add')
+  })
 
 // for routes that end in /books
 router.route('/books')
