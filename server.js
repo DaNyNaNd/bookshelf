@@ -21,7 +21,7 @@ let router = express.Router()
 // use for all requests
 // here, we could add authentication checking for specific routes
 router.use((req, res, next) => {
-  console.log('Something is happening.')
+
   next()
 })
 
@@ -76,19 +76,20 @@ router.route('/books/:book_id')
     })
   })
 })
-// PUT update the book with specified id
-.put((req, res) => { // update from Book profile page
+// Update the book with specified id
+.post((req, res) => { // update from Book profile page
   Book.findById(req.params.book_id, (err, book) => {
     if(err)
       res.send(err)
 
     book.title = req.body.title
+    book.author = req.body.author
 
     book.save((err) => {
       if(err)
         res.send(err)
 
-      res.json({ message : 'Book updated!' })
+      res.redirect('/api/books')
     })
   })
 })
