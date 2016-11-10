@@ -3,6 +3,7 @@ const app = express()
 const PORT = process.env.PORT || 8080
 const bodyParser = require('body-parser')
 const mongoose = require('mongoose')
+const methodOverride = require('method-override')
 
 app.set('view engine', 'ejs')
 app.set('views', __dirname + '/app')
@@ -11,6 +12,8 @@ app.set('views', __dirname + '/app')
 // TODO
 mongoose.connect('mongodb://localhost:27017/bookshelf')
 const Book = require('./app/models/books')
+
+app.use(methodOverride('_method'));
 
 app.use(bodyParser.urlencoded({ extended: true }))
 app.use(bodyParser.json())
