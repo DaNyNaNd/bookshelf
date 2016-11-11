@@ -3,7 +3,6 @@ const app = express()
 const PORT = process.env.PORT || 8080
 const bodyParser = require('body-parser')
 const mongoose = require('mongoose')
-const methodOverride = require('method-override')
 
 app.set('view engine', 'ejs')
 app.set('views', __dirname + '/app')
@@ -12,8 +11,6 @@ app.set('views', __dirname + '/app')
 // TODO
 mongoose.connect('mongodb://localhost:27017/bookshelf')
 const Book = require('./app/models/books')
-
-app.use(methodOverride('_method'));
 
 app.use(bodyParser.urlencoded({ extended: true }))
 app.use(bodyParser.json())
@@ -84,27 +81,29 @@ router.route('/books/:book_id')
   Book.findById(req.params.book_id, (err, book) => {
     if(err)
       res.send(err)
+    
+    // DELETE a book if the delete button is pressed	  
+	if(req.body._method == 'delete') {
+	  Book.remove({
+        _id: req.params.book_id
+      }, (err, book) => {
+        if(err)
+          res.send(err)
 
-    book.title = req.body.title
-    book.author = req.body.author
+       // res.json({ message : 'Successfully deleted!' })
+	   res.redirect('/api/books')
+      })
+	} else { // update the book with the given information
+      book.title = req.body.title
+      book.author = req.body.author
 
-    book.save((err) => {
-      if(err)
-        res.send(err)
-
-      res.redirect('/api/books')
-    })
-  })
-})
-// DELETE a book by id
-.delete((req, res) => { // delete from Book profile page
-  Book.remove({
-    _id: req.params.book_id
-  }, (err, book) => {
-    if(err)
-      res.send(err)
-
-    res.json({ message : 'Successfully deleted!' })
+      book.save((err) => {
+        if(err)
+          res.send(err)
+        // res.json({ message: 'Successfully updated!' })
+        res.redirect('/api/books')
+      })
+	}
   })
 })
 
