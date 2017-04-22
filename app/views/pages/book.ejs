@@ -19,11 +19,10 @@
         <label for="author">Author</label>
         <input type="text" class="form-control" id="author" name="author" value="<%= book.author %>">
       </div>
-      <button type="submit" class="btn btn-success">Submit</button>
+      <button type="submit" class="btn btn-primary">Edit</button>
+      <button type="delete" name="_method" value="delete" onclick="if(!confirm('Are you sure?')) return false;" class="btn btn-danger">Delete</button>
     </form>
   </main>
-    <h1><%= book.title %></h1>
-    <h2>By: <%= book.author %></h2>
   <footer>
       <% include ../partials/footer %>
   </footer>

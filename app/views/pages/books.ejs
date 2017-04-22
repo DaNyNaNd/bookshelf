@@ -29,7 +29,7 @@
                 </tr>
                 <% books.forEach(function(book) { %>
                   <tr>
-                    <td><a href='/api/books/<%= book.id %>'><%= book.title %></a></td>
+                    <td><a href='/books/<%= book.id %>'><%= book.title %></a></td>
                     <td><%= book.author %></td>
                   </tr>
                 <% }) %>
