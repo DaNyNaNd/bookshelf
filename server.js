@@ -19,9 +19,6 @@ app.use(bodyParser.json());
 // Include static files in the resources directory
 app.use(express.static('./app/resources'));
 
-// Include static files in the resources directory
-app.use(express.static('./app/resources'));
-
 // REGISTER router
 app.use(router)
 
