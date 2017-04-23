@@ -1,0 +1,13 @@
+div#main-banner {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+body {
+  padding-top:50px;
+}
+
+.submit-button {
+  margin-bottom: 20px;
+}
