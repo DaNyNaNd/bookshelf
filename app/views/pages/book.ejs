@@ -20,7 +20,7 @@
         <input type="text" class="form-control" id="author" name="author" value="<%= book.author %>">
       </div>
       <button type="submit" class="btn btn-primary">Edit</button>
-      <button type="delete" name="_method" value="delete" class="btn btn-danger">Delete</button>
+      <button type="delete" name="_method" value="delete" onclick="if(!confirm('Are you sure?')) return false;" class="btn btn-danger">Delete</button>
     </form>
   </main>
   <footer>
